@@ -151,12 +151,65 @@ console.log(countWords(myLorem));
 
 
 //1.3
-// function countEtWords(text, word) {
-//     let cleanText = text.replace("\n", " ");
-//     cleanText.
-//     let splitByWord = text.split(" ");
-//     return splitByWord;
-// }
+function countEtWords(text, search) {
+    // cleaning text
+    let cleanText = text.replaceAll('.', '');
+    cleanText = cleanText.replaceAll('\n', ' ');
+    cleanText = cleanText.replaceAll(',', '');
+
+    const trimedText = cleanText.trim();
+
+    // looping array and checking how many et
+    const myWordArray = trimedText.split(' ');
+    let numberofEt = 0;
+
+    myWordArray.forEach(word => {
+        if (word === search) {
+            numberofEt++;
+        }
+    })
+
+    return numberofEt;
+}
+console.log(countEtWords(myLorem, 'et')); // 6
 
 
-// console.log(countEtWords("hello hello", 'hello'));
+//BONUS 2
+
+
+function checkPalindromes(text) {
+    // regex expresion that locates everything that is not a number or a letter
+    const re = RegExp('[^A-z0-9]', 'g');
+    // the same as --> /[^a-z0-9]/g
+    // g stands for global match 
+
+    const textOneClean = text.replaceAll(re, '').toUpperCase();
+    
+    let revertText = '';
+    const maxIndex = textOneClean.length - 1;
+    for (let i = maxIndex; i >= 0 ; i--) {
+        revertText += textOneClean[i];
+    }
+
+    if (textOneClean === revertText) {
+        return true
+    } else {
+        return false
+    }
+}
+
+
+// const someText = window.prompt("write some text: ");
+
+
+const myArrayOfTexts = ["A man, a plan, a canal, Panama!", "Amor, Roma", "race car", "stack cats", "step on no pets", "taco cat", "put it up", "Was it a car or a cat I saw?", "No 'x' in Nixon"]
+
+myArrayOfTexts.forEach(function(element) {
+    if (checkPalindromes(element)) {
+        console.log("the text is a palindrome");
+    } else {
+        console.log("the text is not a palindrome");
+    }
+})
+
+
